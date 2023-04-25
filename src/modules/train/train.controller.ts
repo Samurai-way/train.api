@@ -1,48 +1,21 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  Param,
-  Post,
-  Put,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
+import { Train } from '@prisma/client';
 import { TrainDto } from './dto/train.dto';
+import { TrainRepository } from './repository/train.repository';
+import { FindTrainDto } from './dto/findTrainDto';
 
 @Controller('train')
 export class TrainController {
-  constructor() {} // private readonly trainService: TrainService
+  constructor(private readonly TrainRepo: TrainRepository) {}
 
-  @Post('')
-  @HttpCode(200)
-  async toggleFavorite(@Body() dto: TrainDto) {
-    // return this.trainService.create(dto);
-  }
-
-  @Get(':id')
-  async getProfile(@Param('id') id: string) {
-    // return this.trainService.getById(id);
+  @Post('/create')
+  @HttpCode(204)
+  async createTrip(@Body() dto: TrainDto): Promise<Train> {
+    return this.TrainRepo.createTrain(dto);
   }
 
   @Get('')
-  async getAllSelected(
-    @Query('fromPlace') fromPlace: string,
-    @Query('toPlace') toPlace: string,
-  ) {
-    // return this.trainService.getAll(fromPlace, toPlace);
-  }
-
-  @Put(':id')
-  @HttpCode(200)
-  async update(@Param('id') id: string, @Body() dto: TrainDto) {
-    // return this.trainService.updateTrain(id, dto);
-  }
-
-  @Delete(':id')
-  async delete(@Param('id') id: string) {
-    // const deletedDoc = await this.trainService.delete(id);
-    // if (!deletedDoc) throw new NotFoundException('User not found');
+  async getAllSelected(@Query() dto: FindTrainDto): Promise<Train[]> {
+    return this.TrainRepo.findTrains(dto);
   }
 }

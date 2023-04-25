@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("NEON_URL")
+  shadowDatabaseUrl = env("DATABASE_URL")
+}
+
+model Train {
+  id              String   @id @default(uuid())
+  fromPlace       String
+  toPlace         String
+  departureTime   String
+  availablePlaces DateTime @default(now())
+}

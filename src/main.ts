@@ -7,7 +7,10 @@ const PORT = process.env.PORT || 3000;
 async function start() {
   const app = await NestFactory.create(AppModule, {
     cors: {
-      origin: ['http://localhost:3001'],
+      origin: [
+        'http://localhost:3001',
+        'https://legendary-tanuki-f98817.netlify.app/',
+      ],
       credentials: true,
     },
   });

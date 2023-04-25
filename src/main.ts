@@ -7,10 +7,7 @@ const PORT = process.env.PORT || 3000;
 async function start() {
   const app = await NestFactory.create(AppModule, {
     cors: {
-      origin: [
-        'https://instagram-ui-nine.vercel.app/',
-        'http://localhost:3000',
-      ],
+      origin: ['http://localhost:3001'],
       credentials: true,
     },
   });

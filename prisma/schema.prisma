@@ -9,9 +9,8 @@ datasource db {
 }
 
 model Train {
-  id              String   @id @default(uuid())
-  fromPlace       String
-  toPlace         String
-  departureTime   String
-  availablePlaces DateTime @default(now())
+  id            String @id @default(uuid())
+  fromPlace     String
+  toPlace       String
+  departureTime String
 }
